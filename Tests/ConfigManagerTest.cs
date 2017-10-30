@@ -13,7 +13,7 @@ namespace Tests
         {
             // act
             ConfigManager configManager = new ConfigManager();
-            configManager.ProcessConfigs();
+            configManager.ProcessJsonConfig();
 
             // assert
             // 是否為 Config 型態
