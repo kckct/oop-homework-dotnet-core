@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Services
 {
     /// <summary>
     /// Config 管理
     /// </summary>
-    public class ConfigManager
+    public class ConfigManager : JsonManager
     {
         /// <summary>
         /// config.json 檔案路徑
@@ -17,7 +16,7 @@ namespace Services
         /// <summary>
         /// Config List
         /// </summary>
-        private List<Config> configs = new List<Config>();
+        private readonly List<Config> configs = new List<Config>();
 
         /// <summary>
         /// 以 index 方式讀取物件屬性
@@ -34,29 +33,16 @@ namespace Services
         /// <summary>
         /// 處理 config.json 設定檔
         /// </summary>
-        public void ProcessConfigs()
+        public override void ProcessJsonConfig()
         {
             // 讀取 json 檔取得 JObject
-            JObject obj = GetJsonObject();
+            JObject obj = GetJsonObject(FILEPATH);
 
             // 整理成 Config 放到 configs
             foreach (JToken config in obj["configs"])
             {
                 configs.Add(new Config(config));
             }
-        }
-
-        /// <summary>
-        /// 讀取 json 檔取得 JObject
-        /// </summary>
-        /// <returns>JObject</returns>
-        private JObject GetJsonObject()
-        {
-            // 讀取 json 檔
-            string json = File.ReadAllText(FILEPATH);
-
-            // json parse
-            return JObject.Parse(json);
         }
     }
 }
