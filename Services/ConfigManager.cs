@@ -36,17 +36,27 @@ namespace Services
         /// </summary>
         public void ProcessConfigs()
         {
-            // 讀取 json 檔
-            string json = File.ReadAllText(FILEPATH);
-
-            // json parse
-            JObject obj = JObject.Parse(json);
+            // 讀取 json 檔取得 JObject
+            JObject obj = GetJsonObject();
 
             // 整理成 Config 放到 configs
             foreach (JToken config in obj["configs"])
             {
                 configs.Add(new Config(config));
             }
+        }
+
+        /// <summary>
+        /// 讀取 json 檔取得 JObject
+        /// </summary>
+        /// <returns>JObject</returns>
+        private JObject GetJsonObject()
+        {
+            // 讀取 json 檔
+            string json = File.ReadAllText(FILEPATH);
+
+            // json parse
+            return JObject.Parse(json);
         }
     }
 }
