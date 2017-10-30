@@ -13,7 +13,7 @@ namespace Tests
         {
             // act
             ScheduleManager scheduleManager = new ScheduleManager();
-            scheduleManager.ProcessConfigs();
+            scheduleManager.ProcessJsonConfig();
 
             // assert
             // 是否為 Schedule 型態
