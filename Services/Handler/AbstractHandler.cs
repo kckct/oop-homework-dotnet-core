@@ -1,9 +1,9 @@
 ﻿namespace Services.Handler
 {
     /// <summary>
-    /// Handler interface
+    /// 抽象類別 AbstractHandler
     /// </summary>
-    public interface Handler
+    public class AbstractHandler : Handler
     {
         /// <summary>
         /// 處理檔案
@@ -11,6 +11,9 @@
         /// <param name="candidate">描述待處理檔案的資訊</param>
         /// <param name="target">byte[]</param>
         /// <returns>byte[]</returns>
-        byte[] Perform(Candidate candidate, byte[] target);
+        public virtual byte[] Perform(Candidate candidate, byte[] target)
+        {
+            return target;
+        }
     }
 }
