@@ -1,4 +1,4 @@
-﻿namespace Services.Handler
+﻿namespace Services.Handlers
 {
     /// <summary>
     /// Handler interface

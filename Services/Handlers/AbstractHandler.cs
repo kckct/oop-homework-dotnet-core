@@ -1,4 +1,4 @@
-﻿namespace Services.Handler
+﻿namespace Services.Handlers
 {
     /// <summary>
     /// 抽象類別 AbstractHandler
