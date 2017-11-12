@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Services.Handlers;
 
 namespace Services
@@ -52,7 +53,7 @@ namespace Services
         /// 找檔案
         /// </summary>
         /// <returns>Candidate 陣列</returns>
-        private List<Candidate> FindFiles()
+        public virtual List<Candidate> FindFiles()
         {
             // Homework 4
             return new List<Candidate>();
@@ -75,6 +76,11 @@ namespace Services
             {
                 target = handler.Perform(candidate, target);
             }
+        }
+
+        public object Setup(Func<object, object> p)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
