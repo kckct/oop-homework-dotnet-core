@@ -32,14 +32,18 @@ namespace Services
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="candidate">設定物件</param>
-        public Candidate(JToken candidate)
+        /// <param name="config">Config 物件</param>
+        /// <param name="fileDateTime">檔案的日期與時間</param>
+        /// <param name="name">檔案名稱</param>
+        /// <param name="processName">處理檔案的 process</param>
+        /// <param name="size">檔案 size</param>
+        public Candidate(Config config, string fileDateTime, string name, string processName, string size)
         {
-            Config = candidate["config"].ToObject<Config>();
-            FileDateTime = (string)candidate["fileDateTime"];
-            Name = (string)candidate["name"];
-            ProcessName = (string)candidate["processName"];
-            Size = (string)candidate["size"];
+            Config = config;
+            FileDateTime = fileDateTime;
+            Name = name;
+            ProcessName = processName;
+            Size = size;
         }
     }
 }
