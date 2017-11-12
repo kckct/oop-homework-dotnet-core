@@ -3,6 +3,9 @@ using System.Text;
 
 namespace Services.Handlers
 {
+    /// <summary>
+    /// EncodeHandler 檔案加密
+    /// </summary>
     public class EncodeHandler : AbstractHandler
     {
         /// <summary>

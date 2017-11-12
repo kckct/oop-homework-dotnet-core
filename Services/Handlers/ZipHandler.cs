@@ -3,6 +3,9 @@ using System.IO.Compression;
 
 namespace Services.Handlers
 {
+    /// <summary>
+    /// ZipHandler 檔案壓縮
+    /// </summary>
     public class ZipHandler : AbstractHandler
     {
         /// <summary>
