@@ -6,19 +6,19 @@ using Xunit;
 namespace Tests
 {
     /// <summary>
-    /// EncodeHandler 測試
+    /// ZipHandler 測試
     /// </summary>
-    public class EncodeHandlerTest
+    class ZipHandlerTest
     {
-        private EncodeHandler encodeHandler;
+        private ZipHandler zipHandler;
 
-        public EncodeHandlerTest()
+        public ZipHandlerTest()
         {
-            encodeHandler = new EncodeHandler();
+            zipHandler = new ZipHandler();
         }
 
         [Fact]
-        public void Test_將byte陣列進行編碼_傳入target有值_應回傳byte陣列且有值()
+        public void Test_將byte陣列進行壓縮_傳入target有值_應回傳byte陣列且有值()
         {
             // arrange
             // 產生假 Candidate 物件
@@ -26,14 +26,14 @@ namespace Tests
             byte[] targetStub = new byte[1];
 
             // act
-            byte[] actual = encodeHandler.Perform(candidateStub, targetStub);
+            byte[] actual = zipHandler.Perform(candidateStub, targetStub);
 
             // assert
             Assert.True(actual.Length > 0);
         }
 
-       [Fact]
-        public void Test_將byte陣列進行編碼_傳入target為空陣列_應回傳空陣列()
+        [Fact]
+        public void Test_將byte陣列進行壓縮_傳入target為空陣列_應回傳空陣列()
         {
             // arrange
             // 產生假 Candidate 物件
@@ -41,7 +41,7 @@ namespace Tests
             byte[] targetStub = null;
 
             // act
-            byte[] actual = encodeHandler.Perform(candidateStub, targetStub);
+            byte[] actual = zipHandler.Perform(candidateStub, targetStub);
 
             // assert
             Assert.Null(actual);
