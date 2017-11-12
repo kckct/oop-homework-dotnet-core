@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace Services.Handlers
 {
@@ -24,7 +22,10 @@ namespace Services.Handlers
         /// </summary>
         static HandlerFactory()
         {
+            // 讀取 json 內容
             string jsonString = File.ReadAllText(FILEPATH);
+
+            // 將 json 轉成 Dictionary
             handlerDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
         }
 
@@ -35,9 +36,12 @@ namespace Services.Handlers
         /// <returns>Handler object</returns>
         public static Handler Create(string key)
         {
-            Assembly currentAssembly = Assembly.GetExecutingAssembly();
-            var currentType = currentAssembly.GetTypes().SingleOrDefault(t => t.Name == key);
-            return (Handler)Activator.CreateInstance(currentType);
+            // 組出完整 namespace
+            string fullNameSpace = "Services.Handlers." + handlerDictionary[key];
+
+            // 回傳產生的物件
+            Type handler = Type.GetType(fullNameSpace);
+            return (Handler)Activator.CreateInstance(handler);
         }
     }
 }
