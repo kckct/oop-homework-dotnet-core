@@ -10,7 +10,7 @@ namespace Tests
     public class ConfigTest
     {
         [Fact]
-        public void json檔config有設定但沒有欄位_預設屬性字串為null布林為false()
+        public void Test_json檔config有設定但沒有欄位_預設屬性字串為null布林為false()
         {
             // arrange
             JObject inputStub = JObject.Parse(@"{'configs':[{}]}");
@@ -31,7 +31,7 @@ namespace Tests
         }
 
         [Fact]
-        public void json檔config有設定有欄位_預設屬性正常()
+        public void Test_json檔config有設定有欄位_預設屬性正常()
         {
             // arrange
             JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'xxx','destination':'directory','dir':'c:\\aaa','ext':'cs','handlers':['zip'],'location':'c:\\bbb','remove':false,'subDirectory':true,'unit':'file'}]}");

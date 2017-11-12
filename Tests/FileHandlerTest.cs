@@ -32,7 +32,7 @@ namespace Tests
         }
 
         [Fact]
-        public void Test_將檔案轉成byte陣列_byte陣列筆數應大於0()
+        public void Test_將檔案轉成byte陣列_byte陣列筆數應大於0_將byte陣列轉成檔案_應有檔案產生()
         {
             // 測試 1.將檔案轉成byte陣列
             // arrange
@@ -72,6 +72,10 @@ namespace Tests
             Assert.False(File.Exists(backupFilePath));
         }
 
+        /// <summary>
+        /// 產生假 Candidate 物件
+        /// </summary>
+        /// <returns>Candidate 物件</returns>
         private Candidate CreateFakeCandidate()
         {
             JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'xxx','destination':'directory','dir':'c:\\aaa','ext':'cs','handlers':['zip'],'location':'c:\\bbb','remove':false,'subDirectory':true,'unit':'file'}]}");

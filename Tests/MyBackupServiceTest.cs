@@ -11,7 +11,7 @@ namespace Tests
     public class MyBackupServiceTest
     {
         [Fact]
-        public void 執行處理json設定檔後private欄位managers型態正確()
+        public void Test_執行處理json設定檔後private欄位managers型態正確()
         {
             // act
             MyBackupService myBackupService = new MyBackupService();

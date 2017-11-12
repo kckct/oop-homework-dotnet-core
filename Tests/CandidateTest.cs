@@ -7,7 +7,7 @@ namespace Tests
     public class CandidateTest
     {
         [Fact]
-        public void test_傳入null有預設屬性()
+        public void Test_傳入null有預設屬性()
         {
             // act
             Candidate candidate = new Candidate(null, null, null, null, null);
@@ -22,7 +22,7 @@ namespace Tests
         }
 
         [Fact]
-        public void json檔config有設定有欄位_預設屬性正常()
+        public void Test_json檔config有設定有欄位_預設屬性正常()
         {
             // arrange
             JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'xxx','destination':'directory','dir':'c:\\aaa','ext':'cs','handlers':['zip'],'location':'c:\\bbb','remove':false,'subDirectory':true,'unit':'file'}]}");

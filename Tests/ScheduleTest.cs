@@ -10,7 +10,7 @@ namespace Tests
     public class ScheduleTest
     {
         [Fact]
-        public void json檔schedule有設定但沒有欄位_預設屬性字串為null()
+        public void Test_json檔schedule有設定但沒有欄位_預設屬性字串為null()
         {
             // arrange
             JObject inputStub = JObject.Parse(@"{'schedules':[{}]}");
@@ -25,7 +25,7 @@ namespace Tests
         }
 
         [Fact]
-        public void json檔schedule有設定有欄位_預設屬性正常()
+        public void Test_json檔schedule有設定有欄位_預設屬性正常()
         {
             // arrange
             JObject inputStub = JObject.Parse(@"{'schedules':[{'ext':'cs','time':'12:34','interval':'XXXDay'}]}");
