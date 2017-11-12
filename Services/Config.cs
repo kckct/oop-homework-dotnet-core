@@ -63,7 +63,7 @@ namespace Services
             Destination = (string)config["destination"];
             Dir = (string)config["dir"];
             Ext = (string)config["ext"];
-            Handlers = config["handlers"].ToObject<List<string>>();
+            Handlers = (config["handlers"] == null) ? null : config["handlers"].ToObject<List<string>>();
             Location = (string)config["location"];
             Remove = (bool)(config["remove"] ?? "false");
             SubDirectory = (bool)(config["subDirectory"] ?? "false");
