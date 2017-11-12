@@ -9,7 +9,7 @@ namespace Tests
     public class ConfigManagerTest
     {
         [Fact]
-        public void 讀取設定檔後屬性型態及筆數正確()
+        public void Test_讀取設定檔後屬性型態及筆數正確()
         {
             // act
             ConfigManager configManager = new ConfigManager();

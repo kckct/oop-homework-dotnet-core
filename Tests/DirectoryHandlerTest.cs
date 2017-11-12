@@ -1,44 +1,27 @@
-﻿using Moq;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Services;
-using System.Collections.Generic;
+using Services.Handlers;
 using System.IO;
-using System.Reflection;
 using Xunit;
 
 namespace Tests
 {
     /// <summary>
-    /// MyBackupService 測試
+    /// DirectoryHandler 測試
     /// </summary>
-    public class MyBackupServiceTest
+    public class DirectoryHandlerTest
     {
-        [Fact]
-        public void Test_執行處理json設定檔後private欄位managers型態正確()
+        private DirectoryHandler directoryHandler;
+
+        public DirectoryHandlerTest()
         {
-            // act
-            MyBackupService myBackupService = new MyBackupService();
-            myBackupService.ProcessJsonConfigs();
-
-            // 取得 MyBackupService private field managers
-            FieldInfo fieldInfo = myBackupService.GetType().GetField("managers", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-            List<JsonManager> managers = (List<JsonManager>)fieldInfo.GetValue(myBackupService);
-
-            // assert
-            // managers[0] 應為 ConfigManager
-            Assert.IsType<ConfigManager>(managers[0]);
-            // managers[1] 應為 ScheduleManager
-            Assert.IsType<ScheduleManager>(managers[1]);
+            directoryHandler = new DirectoryHandler();
         }
 
         [Fact]
-        public void Test_執行備份DoBackup會執行四個Handler_應會產生三個檔案()
+        public void Test_將byte陣列還原成檔案並複製到其他目錄_傳入target有值_應複製檔案()
         {
             // arrange
-            // 產生測試用檔案
-            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\test.txt";
-            File.WriteAllText(filePath, "123");
-            Assert.True(File.Exists(filePath));
             // 測試執行時預期產生的檔案
             string byteArrayToFile = "D:\\Projects\\oop-homework\\storage\\app\\test.txt.backup";
             // 測試完預期產生的檔案
@@ -46,15 +29,10 @@ namespace Tests
 
             // 產生假 Candidate 物件
             Candidate candidateStub = CreateFakeCandidate();
-            List<Candidate> listCandidate = new List<Candidate>
-            {
-                candidateStub
-            };
+            byte[] targetStub = new byte[1];
 
             // act
-            var myBackupService = Mock.Of<MyBackupService>();
-            Mock.Get(myBackupService).Setup(d => d.FindFiles()).Returns(listCandidate);
-            myBackupService.DoBackup();
+            byte[] actual = directoryHandler.Perform(candidateStub, targetStub);
 
             // assert
             // 查看是否有檔案產生
@@ -62,12 +40,25 @@ namespace Tests
             Assert.True(File.Exists(copyToNewFile));
 
             // 測試結束刪除檔案
-            File.Delete(filePath);
             File.Delete(byteArrayToFile);
             File.Delete(copyToNewFile);
-            Assert.False(File.Exists(filePath));
             Assert.False(File.Exists(byteArrayToFile));
             Assert.False(File.Exists(copyToNewFile));
+        }
+
+        [Fact]
+        public void Test_將byte陣列還原成檔案並複製到其他目錄_傳入target為空陣列_應回傳空陣列()
+        {
+            // arrange
+            // 產生假 Candidate 物件
+            Candidate candidateStub = CreateFakeCandidate();
+            byte[] targetStub = null;
+
+            // act
+            byte[] actual = directoryHandler.Perform(candidateStub, targetStub);
+
+            // assert
+            Assert.Null(actual);
         }
 
         /// <summary>

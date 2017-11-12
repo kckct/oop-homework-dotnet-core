@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Services.Handlers;
 
 namespace Services
 {
@@ -30,6 +32,80 @@ namespace Services
             {
                 manager.ProcessJsonConfig();
             }
+        }
+
+        /// <summary>
+        /// 執行備份
+        /// </summary>
+        public void DoBackup()
+        {
+            // 找檔案
+            List<Candidate> candidates = FindFiles();
+
+            // 找到檔案的所有 handlers 後進行處理
+            foreach (Candidate candidate in candidates)
+            {
+                BroadcastToHandlers(candidate);
+            }
+        }
+
+        /// <summary>
+        /// 找檔案
+        /// </summary>
+        /// <returns>Candidate 陣列</returns>
+        public virtual List<Candidate> FindFiles()
+        {
+            // Homework 4
+            return new List<Candidate>();
+        }
+
+        /// <summary>
+        /// 找到檔案的所有 handlers 後進行處理
+        /// </summary>
+        /// <param name="candidate">Candidate 物件</param>
+        private void BroadcastToHandlers(Candidate candidate)
+        {
+            // 找到檔案的所有 handlers
+            List<Handler> handlers = FindHandlers(candidate);
+
+            // byte[]
+            byte[] target = null;
+
+            // 依不同的 handler 處理檔案
+            foreach (Handler handler in handlers)
+            {
+                target = handler.Perform(candidate, target);
+            }
+        }
+
+        public object Setup(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 找到檔案的所有 handlers
+        /// </summary>
+        /// <param name="candidate">Candidate 物件</param>
+        /// <returns>Handler 陣列</returns>
+        private List<Handler> FindHandlers(Candidate candidate)
+        {
+            // 加入 處理檔案
+            List<Handler> handlers = new List<Handler>
+            {
+                HandlerFactory.Create("file")
+            };
+
+            // 加入 config.json 內設定的 handler
+            foreach (string handler in candidate.Config.Handlers)
+            {
+                handlers.Add(HandlerFactory.Create(handler));
+            }
+
+            // 加入 處理檔案儲存目的
+            handlers.Add(HandlerFactory.Create(candidate.Config.Destination));
+
+            return handlers;
         }
     }
 }

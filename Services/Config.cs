@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -30,7 +31,7 @@ namespace Services
         /// <summary>
         /// 處理方式
         /// </summary>
-        public string Handler { get; }
+        public List<string> Handlers { get; }
 
         /// <summary>
         /// 備份檔案的目錄
@@ -62,7 +63,7 @@ namespace Services
             Destination = (string)config["destination"];
             Dir = (string)config["dir"];
             Ext = (string)config["ext"];
-            Handler = (string)config["handler"];
+            Handlers = (config["handlers"] == null) ? null : config["handlers"].ToObject<List<string>>();
             Location = (string)config["location"];
             Remove = (bool)(config["remove"] ?? "false");
             SubDirectory = (bool)(config["subDirectory"] ?? "false");
