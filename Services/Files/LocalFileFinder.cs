@@ -1,44 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
 namespace Services.Files
 {
     class LocalFileFinder : AbstractFileFinder
     {
-        public LocalFileFinder()
-        {
-        }
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="config">Config 設定檔物件</param>
         public LocalFileFinder(Config config) : base(config)
         {
+            // 取得此目錄所有的檔名參數
+            SearchOption option = SearchOption.TopDirectoryOnly;
+
             // 是否處理子目錄
             if (config.SubDirectory)
             {
-                // 取得所有子目錄所有的檔名
-                files = GetSubDirectoryFiles(config);
+                // 取得所有子目錄所有的檔名參數
+                option = SearchOption.AllDirectories;
             }
-            else
-            {
-                // 取得此目錄所有的檔名
-                files = Directory.GetFiles(config.Location, "*." + config.Ext);
-            }
+
+            // 依照參數取得檔名
+            files = Directory.GetFiles(config.Location, "*." + config.Ext, option);
         }
 
-        private string[] GetSubDirectoryFiles(Config config)
-        {
-            List<string> allFiles = new List<string>();
-            string[] subdirectoryEntries = Directory.GetDirectories(config.Location);
-            foreach (string subdirectory in subdirectoryEntries)
-            {
-                allFiles.Add(Directory.GetFiles(subdirectory, "*." + config.Ext));
-            }
-        }
-
+        /// <summary>
+        /// 產生 Candidate object
+        /// </summary>
+        /// <param name="fileName">檔名</param>
+        /// <returns>Candidate object</returns>
         protected override Candidate CreateCandidate(string fileName)
         {
+            // 取得檔案資訊
+            FileInfo info = new FileInfo(fileName);
 
+            return new Candidate(config, info.CreationTime, fileName, "processName", info.Length);
         }
     }
 }
