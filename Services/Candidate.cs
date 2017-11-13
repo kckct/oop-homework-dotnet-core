@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
 
 namespace Services
 {
@@ -12,7 +12,7 @@ namespace Services
         /// <summary>
         /// 檔案的日期與時間
         /// </summary>
-        public string FileDateTime { get; }
+        public DateTime FileDateTime { get; }
 
         /// <summary>
         /// 檔案名稱
@@ -27,7 +27,7 @@ namespace Services
         /// <summary>
         /// 檔案 size
         /// </summary>
-        public string Size { get; }
+        public long Size { get; }
 
         /// <summary>
         /// Constructor
@@ -37,7 +37,7 @@ namespace Services
         /// <param name="name">檔案名稱</param>
         /// <param name="processName">處理檔案的 process</param>
         /// <param name="size">檔案 size</param>
-        public Candidate(Config config, string fileDateTime, string name, string processName, string size)
+        public Candidate(Config config, DateTime fileDateTime, string name, string processName, long size)
         {
             Config = config;
             FileDateTime = fileDateTime;

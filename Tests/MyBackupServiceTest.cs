@@ -1,6 +1,7 @@
 ﻿using Moq;
 using Newtonsoft.Json.Linq;
 using Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -81,10 +82,10 @@ namespace Tests
             Config configStub = new Config(inputStub["configs"][0]);
             Candidate candidateStub = new Candidate(
                 configStub,
-                "2017-11-12 12:34:56",
+                Convert.ToDateTime("2017-11-12 12:34:56"),
                 "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt",
                 "xxx",
-                "123"
+                123
             );
 
             return candidateStub;

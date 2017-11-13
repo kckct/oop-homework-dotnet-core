@@ -23,7 +23,7 @@ namespace Tests
         public void Test_將檔案轉成byte陣列_檔案不存在應丟exception()
         {
             // arrange
-            Candidate candidateStub = new Candidate(null, null, null, null, null);
+            Candidate candidateStub = new Candidate(null, new DateTime(), null, null, 0);
             byte[] targetStub = null;
 
             // act
@@ -83,10 +83,10 @@ namespace Tests
             Config configStub = new Config(inputStub["configs"][0]);
             Candidate candidateStub = new Candidate(
                 configStub, 
-                "2017-11-12 12:34:56",
+                Convert.ToDateTime("2017-11-12 12:34:56"),
                 "D:\\Projects\\oop-homework\\storage\\app\\FileHandlerTest.txt", 
                 "xxx", 
-                "123"
+                123
             );
 
             return candidateStub;
