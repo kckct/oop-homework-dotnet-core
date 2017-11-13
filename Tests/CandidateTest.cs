@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Services;
+using System;
 using Xunit;
 
 namespace Tests
@@ -10,15 +11,15 @@ namespace Tests
         public void Test_傳入null有預設屬性()
         {
             // act
-            Candidate candidate = new Candidate(null, null, null, null, null);
+            Candidate candidate = new Candidate(null, new DateTime(), null, null, 0);
 
             // assert
             // Candidate 有屬性
             Assert.Null(candidate.Config);
-            Assert.Null(candidate.FileDateTime);
+            Assert.IsType<DateTime>(candidate.FileDateTime);
             Assert.Null(candidate.Name);
             Assert.Null(candidate.ProcessName);
-            Assert.Null(candidate.Size);
+            Assert.Equal(0, candidate.Size);
         }
 
         [Fact]
@@ -29,16 +30,16 @@ namespace Tests
 
             // act
             Config configStub = new Config(inputStub["configs"][0]);
-            Candidate candidate = new Candidate(configStub, "2017-11-12 12:34:56", "c:\\test.txt", "xxx", "123");
+            Candidate candidate = new Candidate(configStub, Convert.ToDateTime("2017-11-12 12:34:56"), "c:\\test.txt", "xxx", 123);
 
             // assert
             // Candidate 的屬性 config 型別應為 Config
             Assert.IsType<Config>(candidate.Config);
             // Candidate 屬性值是否正確
-            Assert.Equal("2017-11-12 12:34:56", candidate.FileDateTime);
+            Assert.IsType<DateTime>(candidate.FileDateTime);
             Assert.Equal("c:\\test.txt", candidate.Name);
             Assert.Equal("xxx", candidate.ProcessName);
-            Assert.Equal("123", candidate.Size);
+            Assert.Equal(123, candidate.Size);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using Moq;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -13,11 +13,17 @@ namespace Tests
     /// </summary>
     public class MyBackupServiceTest
     {
+        private MyBackupService myBackupService;
+
+        public MyBackupServiceTest()
+        {
+            myBackupService = new MyBackupService();
+        }
+
         [Fact]
         public void Test_執行處理json設定檔後private欄位managers型態正確()
         {
             // act
-            MyBackupService myBackupService = new MyBackupService();
             myBackupService.ProcessJsonConfigs();
 
             // 取得 MyBackupService private field managers
@@ -36,13 +42,12 @@ namespace Tests
         {
             // arrange
             // 產生測試用檔案
-            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\test.txt";
+            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt";
             File.WriteAllText(filePath, "123");
-            Assert.True(File.Exists(filePath));
             // 測試執行時預期產生的檔案
-            string byteArrayToFile = "D:\\Projects\\oop-homework\\storage\\app\\test.txt.backup";
+            string byteArrayToFile = "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt.backup";
             // 測試完預期產生的檔案
-            string copyToNewFile = "D:\\Projects\\oop-homework\\storage\\app\\backup\\test.txt.backup";
+            string copyToNewFile = "D:\\Projects\\oop-homework\\storage\\app\\backup\\MyBackupServiceTest.txt.backup";
 
             // 產生假 Candidate 物件
             Candidate candidateStub = CreateFakeCandidate();
@@ -52,12 +57,12 @@ namespace Tests
             };
 
             // act
-            var myBackupService = Mock.Of<MyBackupService>();
-            Mock.Get(myBackupService).Setup(d => d.FindFiles()).Returns(listCandidate);
+            myBackupService.ProcessJsonConfigs();
             myBackupService.DoBackup();
 
             // assert
             // 查看是否有檔案產生
+            Assert.True(File.Exists(filePath));
             Assert.True(File.Exists(byteArrayToFile));
             Assert.True(File.Exists(copyToNewFile));
 
@@ -81,10 +86,10 @@ namespace Tests
             Config configStub = new Config(inputStub["configs"][0]);
             Candidate candidateStub = new Candidate(
                 configStub,
-                "2017-11-12 12:34:56",
-                "D:\\Projects\\oop-homework\\storage\\app\\test.txt",
+                Convert.ToDateTime("2017-11-12 12:34:56"),
+                "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt",
                 "xxx",
-                "123"
+                123
             );
 
             return candidateStub;

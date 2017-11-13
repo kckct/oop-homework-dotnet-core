@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using Services;
 using Services.Handlers;
+using System;
 using System.IO;
 using Xunit;
 
@@ -72,10 +73,10 @@ namespace Tests
             Config configStub = new Config(inputStub["configs"][0]);
             Candidate candidateStub = new Candidate(
                 configStub,
-                "2017-11-12 12:34:56",
+                Convert.ToDateTime("2017-11-12 12:34:56"),
                 "D:\\Projects\\oop-homework\\storage\\app\\test.txt",
                 "xxx",
-                "123"
+                123
             );
 
             return candidateStub;
