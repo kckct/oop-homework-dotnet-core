@@ -2,7 +2,7 @@
 
 namespace Services.Files
 {
-    class AbstractFileFinder : FileFinder
+    public abstract class AbstractFileFinder : FileFinder
     {
         protected Config config;
         protected string[] files;
