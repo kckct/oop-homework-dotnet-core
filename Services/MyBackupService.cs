@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Services.Files;
 using Services.Handlers;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -39,24 +39,37 @@ namespace Services
         /// </summary>
         public void DoBackup()
         {
-            // 找檔案
-            List<Candidate> candidates = FindFiles();
+            // 取得 ConfigManager
+            ConfigManager configManager = GetConfigManager();
 
-            // 找到檔案的所有 handlers 後進行處理
-            foreach (Candidate candidate in candidates)
+            for (int i = 0; i < configManager.Count; i++)
             {
-                BroadcastToHandlers(candidate);
+                // 找檔案
+                FileFinder fileFinder = FileFinderFactory.Create("file", configManager[i]);
+
+                // 找到檔案的所有 handlers 後進行處理
+                foreach (Candidate candidate in fileFinder)
+                {
+                    BroadcastToHandlers(candidate);
+                }
             }
         }
 
         /// <summary>
-        /// 找檔案
+        /// 取得 ConfigManager
         /// </summary>
-        /// <returns>Candidate 陣列</returns>
-        public virtual List<Candidate> FindFiles()
+        /// <returns>ConfigManager 物件</returns>
+        private ConfigManager GetConfigManager()
         {
-            // Homework 4
-            return new List<Candidate>();
+            foreach (JsonManager manager in managers)
+            {
+                if (manager.GetType() == typeof(ConfigManager))
+                {
+                    return (ConfigManager)manager;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -76,11 +89,6 @@ namespace Services
             {
                 target = handler.Perform(candidate, target);
             }
-        }
-
-        public object Setup(Func<object, object> p)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

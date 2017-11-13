@@ -1,5 +1,4 @@
-﻿using Moq;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -14,11 +13,17 @@ namespace Tests
     /// </summary>
     public class MyBackupServiceTest
     {
+        private MyBackupService myBackupService;
+
+        public MyBackupServiceTest()
+        {
+            myBackupService = new MyBackupService();
+        }
+
         [Fact]
         public void Test_執行處理json設定檔後private欄位managers型態正確()
         {
             // act
-            MyBackupService myBackupService = new MyBackupService();
             myBackupService.ProcessJsonConfigs();
 
             // 取得 MyBackupService private field managers
@@ -52,8 +57,7 @@ namespace Tests
             };
 
             // act
-            var myBackupService = Mock.Of<MyBackupService>();
-            Mock.Get(myBackupService).Setup(d => d.FindFiles()).Returns(listCandidate);
+            myBackupService.ProcessJsonConfigs();
             myBackupService.DoBackup();
 
             // assert
