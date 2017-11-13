@@ -36,13 +36,13 @@ namespace Tests
         {
             // arrange
             // 產生測試用檔案
-            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\test.txt";
+            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt";
             File.WriteAllText(filePath, "123");
             Assert.True(File.Exists(filePath));
             // 測試執行時預期產生的檔案
-            string byteArrayToFile = "D:\\Projects\\oop-homework\\storage\\app\\test.txt.backup";
+            string byteArrayToFile = "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt.backup";
             // 測試完預期產生的檔案
-            string copyToNewFile = "D:\\Projects\\oop-homework\\storage\\app\\backup\\test.txt.backup";
+            string copyToNewFile = "D:\\Projects\\oop-homework\\storage\\app\\backup\\MyBackupServiceTest.txt.backup";
 
             // 產生假 Candidate 物件
             Candidate candidateStub = CreateFakeCandidate();
@@ -82,7 +82,7 @@ namespace Tests
             Candidate candidateStub = new Candidate(
                 configStub,
                 "2017-11-12 12:34:56",
-                "D:\\Projects\\oop-homework\\storage\\app\\test.txt",
+                "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt",
                 "xxx",
                 "123"
             );

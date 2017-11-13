@@ -37,7 +37,7 @@ namespace Tests
             // 測試 1.將檔案轉成byte陣列
             // arrange
             // 產生測試用檔案
-            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\test.txt";
+            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\FileHandlerTest.txt";
             File.WriteAllText(filePath, "123");
             Assert.True(File.Exists(filePath));
 
@@ -57,7 +57,7 @@ namespace Tests
 
             // 測試 2.將byte陣列轉成檔案
             // arrange
-            string backupFilePath = "D:\\Projects\\oop-homework\\storage\\app\\test.txt.backup";
+            string backupFilePath = "D:\\Projects\\oop-homework\\storage\\app\\FileHandlerTest.txt.backup";
             byte[] targetStub2 = actual;
 
             // act
@@ -83,8 +83,8 @@ namespace Tests
             Config configStub = new Config(inputStub["configs"][0]);
             Candidate candidateStub = new Candidate(
                 configStub, 
-                "2017-11-12 12:34:56", 
-                "D:\\Projects\\oop-homework\\storage\\app\\test.txt", 
+                "2017-11-12 12:34:56",
+                "D:\\Projects\\oop-homework\\storage\\app\\FileHandlerTest.txt", 
                 "xxx", 
                 "123"
             );
