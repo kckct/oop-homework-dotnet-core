@@ -39,7 +39,6 @@ namespace Tests
             // 產生測試用檔案
             string filePath = "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt";
             File.WriteAllText(filePath, "123");
-            Assert.True(File.Exists(filePath));
             // 測試執行時預期產生的檔案
             string byteArrayToFile = "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt.backup";
             // 測試完預期產生的檔案
@@ -59,6 +58,7 @@ namespace Tests
 
             // assert
             // 查看是否有檔案產生
+            Assert.True(File.Exists(filePath));
             Assert.True(File.Exists(byteArrayToFile));
             Assert.True(File.Exists(copyToNewFile));
 
