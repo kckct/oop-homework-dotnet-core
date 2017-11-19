@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Services;
+using Candidates;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,7 +39,7 @@ namespace Tests
         }
 
         [Fact]
-        public void Test_執行備份DoBackup會執行四個Handler_應會產生三個檔案()
+        public void Test_執行備份SimpleBackup會執行四個Handler_應會產生三個檔案()
         {
             // arrange
             // 產生測試用檔案
@@ -57,8 +58,7 @@ namespace Tests
             };
 
             // act
-            myBackupService.ProcessJsonConfigs();
-            myBackupService.DoBackup();
+            myBackupService.SimpleBackup();
 
             // assert
             // 查看是否有檔案產生
@@ -84,7 +84,7 @@ namespace Tests
             JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'','destination':'directory','dir':'D:\\Projects\\oop-homework\\storage\\app\\backup','ext':'txt','handlers':['zip', 'encode'],'location':'D:\\Projects\\oop-homework\\storage\\app','remove':false,'subDirectory':true,'unit':'file'}]}");
 
             Config configStub = new Config(inputStub["configs"][0]);
-            Candidate candidateStub = new Candidate(
+            Candidate candidateStub = CandidateFactory.Create(
                 configStub,
                 Convert.ToDateTime("2017-11-12 12:34:56"),
                 "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt",

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Candidates;
+using Newtonsoft.Json.Linq;
 using Services;
 using System;
 using Xunit;
@@ -11,7 +12,7 @@ namespace Tests
         public void Test_傳入null有預設屬性()
         {
             // act
-            Candidate candidate = new Candidate(null, new DateTime(), null, null, 0);
+            Candidate candidate = CandidateFactory.Create(null, new DateTime(), null, null, 0);
 
             // assert
             // Candidate 有屬性
@@ -30,7 +31,7 @@ namespace Tests
 
             // act
             Config configStub = new Config(inputStub["configs"][0]);
-            Candidate candidate = new Candidate(configStub, Convert.ToDateTime("2017-11-12 12:34:56"), "c:\\test.txt", "xxx", 123);
+            Candidate candidate = CandidateFactory.Create(configStub, Convert.ToDateTime("2017-11-12 12:34:56"), "c:\\test.txt", "xxx", 123);
 
             // assert
             // Candidate 的屬性 config 型別應為 Config

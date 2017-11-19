@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Services;
+using Candidates;
 using Services.Handlers;
 using System;
 using System.IO;
@@ -71,7 +72,7 @@ namespace Tests
             JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'','destination':'directory','dir':'D:\\Projects\\oop-homework\\storage\\app\\backup','ext':'txt','handlers':['zip', 'encode'],'location':'D:\\Projects\\oop-homework\\storage\\app','remove':false,'subDirectory':true,'unit':'file'}]}");
 
             Config configStub = new Config(inputStub["configs"][0]);
-            Candidate candidateStub = new Candidate(
+            Candidate candidateStub = CandidateFactory.Create(
                 configStub,
                 Convert.ToDateTime("2017-11-12 12:34:56"),
                 "D:\\Projects\\oop-homework\\storage\\app\\test.txt",
