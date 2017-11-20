@@ -21,10 +21,10 @@ namespace Services
         /// <summary>
         /// Constructor
         /// </summary>
-        public MyBackupService()
+        public MyBackupService(ConfigManager configManager, ScheduleManager scheduleManager)
         {
-            managers.Add(new ConfigManager());
-            managers.Add(new ScheduleManager());
+            managers.Add(configManager);
+            managers.Add(scheduleManager);
             taskDispatcher = new TaskDispatcher();
 
             Init();
@@ -42,7 +42,7 @@ namespace Services
         /// <summary>
         /// 處理 json 設定檔
         /// </summary>
-        public void ProcessJsonConfigs()
+        private void ProcessJsonConfigs()
         {
             foreach (JsonManager manager in managers)
             {
