@@ -1,8 +1,4 @@
-﻿using Candidates;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Services;
-using System;
+﻿using Services;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -38,7 +34,7 @@ namespace Tests
         }
 
         [Fact]
-        public void Test_執行備份SimpleBackup會執行四個Handler_應會產生三個檔案()
+        public void Test_執行備份SimpleBackup_應會產生三個檔案()
         {
             // arrange
             // 產生測試用檔案
@@ -68,24 +64,9 @@ namespace Tests
         }
 
         [Fact]
-        public void Test_執行備份ScheduledBackup會執行四個Handler_應會產生三個檔案()
+        public void Test_執行備份ScheduledBackup_應會產生一個檔案_不應有備份檔案()
         {
             // arrange
-            // 產生測試用檔案
-            //string testJsonPath = @"D:\\Projects\\oop-homework-dotnet-core\\Services\\configs\\test-schedule.json";
-            //var obj = new {
-            //    schedules = new [] {
-            //        new {
-            //            ext = "txt",
-            //            time = "12:00",
-            //            interval = "Everyday",
-            //        }
-            //    }
-            //};
-
-            //string json = JsonConvert.SerializeObject(obj);
-            //File.WriteAllText(testJsonPath, json);
-
             string filePath = "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt2";
             File.WriteAllText(filePath, "123");
             // 測試執行時預期產生的檔案
@@ -93,84 +74,19 @@ namespace Tests
             // 測試完預期產生的檔案
             string copyToNewFile = "D:\\Projects\\oop-homework\\storage\\app\\backup\\MyBackupServiceTest.txt2.backup";
 
-            // 產生假 Candidate 物件
-            Candidate candidateStub = CreateFakeCandidate();
-            List<Candidate> listCandidate = new List<Candidate>
-            {
-                candidateStub
-            };
 
             // act
-            MyBackupService myBackupService = new MyBackupService(new ConfigManager(), CreateFakeScheduleManager());
             myBackupService.ScheduledBackup();
 
             // assert
             // 查看是否有檔案產生
             Assert.True(File.Exists(filePath));
-            Assert.True(File.Exists(byteArrayToFile));
-            Assert.True(File.Exists(copyToNewFile));
 
             // 測試結束刪除檔案
             File.Delete(filePath);
-            File.Delete(byteArrayToFile);
-            File.Delete(copyToNewFile);
             Assert.False(File.Exists(filePath));
             Assert.False(File.Exists(byteArrayToFile));
             Assert.False(File.Exists(copyToNewFile));
-        }
-
-        /// <summary>
-        /// 產生假 Candidate 物件
-        /// </summary>
-        /// <returns>Candidate 物件</returns>
-        private Candidate CreateFakeCandidate()
-        {
-            JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'','destination':'directory','dir':'D:\\Projects\\oop-homework\\storage\\app\\backup','ext':'txt','handlers':['zip', 'encode'],'location':'D:\\Projects\\oop-homework\\storage\\app','remove':false,'subDirectory':true,'unit':'file'}]}");
-
-            Config configStub = new Config(inputStub["configs"][0]);
-            Candidate candidateStub = CandidateFactory.Create(
-                configStub,
-                Convert.ToDateTime("2017-11-12 12:34:56"),
-                "D:\\Projects\\oop-homework\\storage\\app\\MyBackupServiceTest.txt",
-                "xxx",
-                123
-            );
-
-            return candidateStub;
-        }
-
-        private ScheduleManager CreateFakeScheduleManager()
-        {
-            ScheduleManager scheduleManagerStub = new ScheduleManager();
-            List<Schedule> fieldStub = new List<Schedule>();
-
-            var jsonObj = new
-            {
-                schedules = new[] {
-                    new {
-                        ext = "txt",
-                        time = DateTime.Now.ToString("HH:mm"),
-                        interval = "Everyday",
-                    }
-                }
-            };
-
-            string json = JsonConvert.SerializeObject(jsonObj);
-
-            // json parse
-            JObject obj = JObject.Parse(json);
-            //Console.WriteLine(obj);
-
-            // 整理成 Schedule 放到 schedules
-            foreach (JToken schedule in obj["schedules"])
-            {
-                fieldStub.Add(new Schedule(schedule));
-            }
-
-            FieldInfo fld = typeof(ScheduleManager).GetField("schedules", BindingFlags.Instance | BindingFlags.NonPublic);
-            fld.SetValue(scheduleManagerStub, fieldStub);
-
-            return scheduleManagerStub;
         }
     }
 }
