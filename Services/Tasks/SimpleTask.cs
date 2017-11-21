@@ -1,4 +1,6 @@
-﻿namespace Services.Tasks
+﻿using Candidates;
+
+namespace Services.Tasks
 {
     /// <summary>
     /// SimpleTask 簡單備份

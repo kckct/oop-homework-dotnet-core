@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Services;
+using System;
 
-namespace Services
+namespace Candidates
 {
     public class Candidate
     {

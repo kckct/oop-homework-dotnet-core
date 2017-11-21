@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Candidates;
+using Newtonsoft.Json.Linq;
 using Services;
 using Services.Files;
 using System.IO;
