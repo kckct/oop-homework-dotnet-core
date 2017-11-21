@@ -5,7 +5,7 @@ using Services.Handlers;
 using System;
 using Xunit;
 
-namespace Tests
+namespace Tests.Handlers
 {
     /// <summary>
     /// ZipHandler 測試

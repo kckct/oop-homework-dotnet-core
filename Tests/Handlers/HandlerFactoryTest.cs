@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace Tests
+namespace Tests.Handlers
 {
     /// <summary>
     /// HandlerFactory 測試

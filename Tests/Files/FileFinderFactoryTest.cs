@@ -4,7 +4,7 @@ using Services.Files;
 using System.IO;
 using Xunit;
 
-namespace Tests
+namespace Tests.Files
 {
     /// <summary>
     /// HandlerFactory 測試

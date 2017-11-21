@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using Xunit;
 
-namespace Tests
+namespace Tests.Files
 {
     /// <summary>
     /// FileHandler 測試

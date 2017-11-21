@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using Xunit;
 
-namespace Tests
+namespace Tests.Handlers
 {
     /// <summary>
     /// DirectoryHandler 測試
