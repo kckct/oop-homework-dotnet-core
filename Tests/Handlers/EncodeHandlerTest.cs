@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using Services;
+using Candidates;
 using Services.Handlers;
 using System;
 using Xunit;
 
-namespace Tests
+namespace Tests.Handlers
 {
     /// <summary>
     /// EncodeHandler 測試
@@ -57,7 +58,7 @@ namespace Tests
             JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'xxx','destination':'directory','dir':'c:\\aaa','ext':'cs','handlers':['zip'],'location':'c:\\bbb','remove':false,'subDirectory':true,'unit':'file'}]}");
 
             Config configStub = new Config(inputStub["configs"][0]);
-            Candidate candidateStub = new Candidate(
+            Candidate candidateStub = CandidateFactory.Create(
                 configStub,
                 Convert.ToDateTime("2017-11-12 12:34:56"),
                 "D:\\Projects\\oop-homework\\storage\\app\\test.txt",

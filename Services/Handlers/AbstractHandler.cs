@@ -1,4 +1,6 @@
-﻿namespace Services.Handlers
+﻿using Candidates;
+
+namespace Services.Handlers
 {
     /// <summary>
     /// 抽象類別 AbstractHandler

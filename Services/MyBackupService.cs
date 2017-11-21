@@ -1,5 +1,4 @@
-﻿using Services.Files;
-using Services.Handlers;
+﻿using Services.Tasks;
 using System.Collections.Generic;
 
 namespace Services
@@ -15,18 +14,35 @@ namespace Services
         private readonly List<JsonManager> managers = new List<JsonManager>();
 
         /// <summary>
+        /// TaskDispatcher 工作分配
+        /// </summary>
+        private TaskDispatcher taskDispatcher;
+
+        /// <summary>
         /// Constructor
         /// </summary>
-        public MyBackupService()
+        public MyBackupService(ConfigManager configManager, ScheduleManager scheduleManager)
         {
-            managers.Add(new ConfigManager());
-            managers.Add(new ScheduleManager());
+            managers.Add(configManager);
+            managers.Add(scheduleManager);
+            taskDispatcher = new TaskDispatcher();
+
+            Init();
+        }
+
+        /// <summary>
+        /// 初始化設定
+        /// </summary>
+        private void Init()
+        {
+            // 處理 json 設定檔
+            ProcessJsonConfigs();
         }
 
         /// <summary>
         /// 處理 json 設定檔
         /// </summary>
-        public void ProcessJsonConfigs()
+        private void ProcessJsonConfigs()
         {
             foreach (JsonManager manager in managers)
             {
@@ -35,85 +51,19 @@ namespace Services
         }
 
         /// <summary>
-        /// 執行備份
+        /// 簡單備份
         /// </summary>
-        public void DoBackup()
+        public void SimpleBackup()
         {
-            // 取得 ConfigManager
-            ConfigManager configManager = GetConfigManager();
-
-            for (int i = 0; i < configManager.Count; i++)
-            {
-                // 找檔案
-                FileFinder fileFinder = FileFinderFactory.Create("file", configManager[i]);
-
-                // 找到檔案的所有 handlers 後進行處理
-                foreach (Candidate candidate in fileFinder)
-                {
-                    BroadcastToHandlers(candidate);
-                }
-            }
+            taskDispatcher.SimpleTask(managers);
         }
 
         /// <summary>
-        /// 取得 ConfigManager
+        /// 排程備份
         /// </summary>
-        /// <returns>ConfigManager 物件</returns>
-        private ConfigManager GetConfigManager()
+        public void ScheduledBackup()
         {
-            foreach (JsonManager manager in managers)
-            {
-                if (manager.GetType() == typeof(ConfigManager))
-                {
-                    return (ConfigManager)manager;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// 找到檔案的所有 handlers 後進行處理
-        /// </summary>
-        /// <param name="candidate">Candidate 物件</param>
-        private void BroadcastToHandlers(Candidate candidate)
-        {
-            // 找到檔案的所有 handlers
-            List<Handler> handlers = FindHandlers(candidate);
-
-            // byte[]
-            byte[] target = null;
-
-            // 依不同的 handler 處理檔案
-            foreach (Handler handler in handlers)
-            {
-                target = handler.Perform(candidate, target);
-            }
-        }
-
-        /// <summary>
-        /// 找到檔案的所有 handlers
-        /// </summary>
-        /// <param name="candidate">Candidate 物件</param>
-        /// <returns>Handler 陣列</returns>
-        private List<Handler> FindHandlers(Candidate candidate)
-        {
-            // 加入 處理檔案
-            List<Handler> handlers = new List<Handler>
-            {
-                HandlerFactory.Create("file")
-            };
-
-            // 加入 config.json 內設定的 handler
-            foreach (string handler in candidate.Config.Handlers)
-            {
-                handlers.Add(HandlerFactory.Create(handler));
-            }
-
-            // 加入 處理檔案儲存目的
-            handlers.Add(HandlerFactory.Create(candidate.Config.Destination));
-
-            return handlers;
+            taskDispatcher.ScheduledTask(managers);
         }
     }
 }

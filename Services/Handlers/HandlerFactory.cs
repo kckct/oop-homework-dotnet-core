@@ -30,7 +30,7 @@ namespace Services.Handlers
         }
 
         /// <summary>
-        ///  建立對應的 Handler object
+        /// 建立對應的 Handler object
         /// </summary>
         /// <param name="key">handler key</param>
         /// <returns>Handler object</returns>

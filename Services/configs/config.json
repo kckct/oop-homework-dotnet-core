@@ -6,24 +6,24 @@
       "subDirectory": false,
       "unit": "file",
       "remove": false,
-      "handlers": ["zip", "encode"],
+      "handlers": [ "zip", "encode" ],
       "destination": "directory",
       "dir": "D:\\Projects\\oop-homework\\storage\\app\\backup",
       "connectionString": ""
     },
     {
-      "ext": "DOCX",
+      "ext": "docx",
       "location": "D:\\Projects\\oop-homework\\storage\\app",
       "subDirectory": true,
       "unit": "file",
       "remove": false,
-      "handlers": ["encode"],
+      "handlers": [ "encode" ],
       "destination": "db",
       "dir": "",
       "connectionString": "MyConnectionString"
     },
     {
-      "ext": "jpg",
+      "ext": "txt2",
       "location": "D:\\Projects\\oop-homework\\storage\\app",
       "subDirectory": true,
       "unit": "file",

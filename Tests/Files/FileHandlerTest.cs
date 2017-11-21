@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
 using Services;
+using Candidates;
 using Services.Handlers;
 using System;
 using System.IO;
 using Xunit;
 
-namespace Tests
+namespace Tests.Files
 {
     /// <summary>
     /// FileHandler 測試
@@ -23,7 +24,7 @@ namespace Tests
         public void Test_將檔案轉成byte陣列_檔案不存在應丟exception()
         {
             // arrange
-            Candidate candidateStub = new Candidate(null, new DateTime(), null, null, 0);
+            Candidate candidateStub = CandidateFactory.Create(null, new DateTime(), null, null, 0);
             byte[] targetStub = null;
 
             // act
@@ -81,7 +82,7 @@ namespace Tests
             JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'xxx','destination':'directory','dir':'c:\\aaa','ext':'cs','handlers':['zip'],'location':'c:\\bbb','remove':false,'subDirectory':true,'unit':'file'}]}");
 
             Config configStub = new Config(inputStub["configs"][0]);
-            Candidate candidateStub = new Candidate(
+            Candidate candidateStub = CandidateFactory.Create(
                 configStub, 
                 Convert.ToDateTime("2017-11-12 12:34:56"),
                 "D:\\Projects\\oop-homework\\storage\\app\\FileHandlerTest.txt", 

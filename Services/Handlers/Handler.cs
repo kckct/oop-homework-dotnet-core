@@ -1,4 +1,6 @@
-﻿namespace Services.Handlers
+﻿using Candidates;
+
+namespace Services.Handlers
 {
     /// <summary>
     /// Handler interface

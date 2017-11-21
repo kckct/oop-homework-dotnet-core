@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Candidates;
+using Newtonsoft.Json.Linq;
 using Services;
 using Services.Files;
 using System.IO;
 using Xunit;
 
-namespace Tests
+namespace Tests.Files
 {
     /// <summary>
     /// HandlerFactory 測試
@@ -23,13 +24,13 @@ namespace Tests
         {
             // arragne
             // 產生測試用檔案, 目前目錄
-            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\FileFinderFactoryTest.txt2";
+            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\FileFinderFactoryTest.txt3";
             File.WriteAllText(filePath, "123");
             // 產生測試用檔案, 目前目錄下子目錄
-            string filePath2 = "D:\\Projects\\oop-homework\\storage\\app\\public\\FileFinderFactoryTest2.txt2";
+            string filePath2 = "D:\\Projects\\oop-homework\\storage\\app\\public\\FileFinderFactoryTest2.txt3";
             File.WriteAllText(filePath2, "123");
 
-            JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'','destination':'directory','dir':'D:\\Projects\\oop-homework\\storage\\app\\backup','ext':'txt2','handlers':['zip', 'encode'],'location':'D:\\Projects\\oop-homework\\storage\\app','remove':false,'subDirectory':false,'unit':'file'}]}");
+            JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'','destination':'directory','dir':'D:\\Projects\\oop-homework\\storage\\app\\backup','ext':'txt3','handlers':['zip', 'encode'],'location':'D:\\Projects\\oop-homework\\storage\\app','remove':false,'subDirectory':false,'unit':'file'}]}");
 
             Config configStub = new Config(inputStub["configs"][0]);
 
@@ -63,13 +64,13 @@ namespace Tests
         {
             // arragne
             // 產生測試用檔案, 目前目錄
-            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\FileFinderFactoryTest.txt2";
+            string filePath = "D:\\Projects\\oop-homework\\storage\\app\\FileFinderFactoryTest.txt4";
             File.WriteAllText(filePath, "123");
             // 產生測試用檔案, 目前目錄下子目錄
-            string filePath2 = "D:\\Projects\\oop-homework\\storage\\app\\public\\FileFinderFactoryTest2.txt2";
+            string filePath2 = "D:\\Projects\\oop-homework\\storage\\app\\public\\FileFinderFactoryTest2.txt4";
             File.WriteAllText(filePath2, "123");
 
-            JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'','destination':'directory','dir':'D:\\Projects\\oop-homework\\storage\\app\\backup','ext':'txt2','handlers':['zip', 'encode'],'location':'D:\\Projects\\oop-homework\\storage\\app','remove':false,'subDirectory':true,'unit':'file'}]}");
+            JObject inputStub = JObject.Parse(@"{'configs':[{'connectionString':'','destination':'directory','dir':'D:\\Projects\\oop-homework\\storage\\app\\backup','ext':'txt4','handlers':['zip', 'encode'],'location':'D:\\Projects\\oop-homework\\storage\\app','remove':false,'subDirectory':true,'unit':'file'}]}");
 
             Config configStub = new Config(inputStub["configs"][0]);
 

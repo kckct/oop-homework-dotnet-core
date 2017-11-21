@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Services;
+using System;
 
-namespace Services
+namespace Candidates
 {
     public class Candidate
     {
@@ -37,7 +38,7 @@ namespace Services
         /// <param name="name">檔案名稱</param>
         /// <param name="processName">處理檔案的 process</param>
         /// <param name="size">檔案 size</param>
-        public Candidate(Config config, DateTime fileDateTime, string name, string processName, long size)
+        internal Candidate(Config config, DateTime fileDateTime, string name, string processName, long size)
         {
             Config = config;
             FileDateTime = fileDateTime;
