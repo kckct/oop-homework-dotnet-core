@@ -68,9 +68,9 @@ namespace Services.Tasks
             {
                 for (int j = 0; j < scheduleManager.Count; j++)
                 {
-                    if (configManager[i].Ext == scheduleManager[i].Ext)
+                    if (configManager[i].Ext == scheduleManager[j].Ext)
                     {
-                        task.Execute(configManager[i], scheduleManager[i]);
+                        task.Execute(configManager[i], scheduleManager[j]);
                     }
                 }
             }
