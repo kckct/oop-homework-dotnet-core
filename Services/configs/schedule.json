@@ -1,7 +1,7 @@
 ﻿{
   "schedules": [
     {
-      "ext": "cs",
+      "ext": "txt",
       "time": "12:00",
       "interval": "Everyday"
     },
@@ -11,7 +11,7 @@
       "interval": "Everyday"
     },
     {
-      "ext": "jpg",
+      "ext": "txt2",
       "time": "7:00",
       "interval": "Monday"
     }
