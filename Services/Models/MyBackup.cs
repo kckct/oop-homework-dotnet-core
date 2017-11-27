@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Services.Models
 {
@@ -31,7 +30,7 @@ namespace Services.Models
         /// <summary>
         /// 資料處理
         /// </summary>
-        public List<string> Handlers { get; set; }
+        public string Handlers { get; set; }
 
         /// <summary>
         /// 檔案內容
