@@ -12,7 +12,7 @@ namespace Tests.Tasks
     /// <summary>
     /// TaskDispatcher 測試
     /// </summary>
-    class TaskDispatcherTest
+    public class TaskDispatcherTest
     {
         private TaskDispatcher taskDispatcher;
 

@@ -10,7 +10,7 @@ namespace Tests.Tasks
     /// <summary>
     /// ScheduledTask 測試
     /// </summary>
-    class ScheduledTaskTest
+    public class ScheduledTaskTest
     {
         private ScheduledTask scheduledTask;
 

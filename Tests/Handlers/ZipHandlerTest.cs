@@ -10,7 +10,7 @@ namespace Tests.Handlers
     /// <summary>
     /// ZipHandler 測試
     /// </summary>
-    class ZipHandlerTest
+    public class ZipHandlerTest
     {
         private ZipHandler zipHandler;
 
